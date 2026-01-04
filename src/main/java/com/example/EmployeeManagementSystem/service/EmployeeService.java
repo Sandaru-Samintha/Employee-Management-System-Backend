@@ -5,10 +5,14 @@ import com.example.EmployeeManagementSystem.entity.Employee;
 import com.example.EmployeeManagementSystem.repository.EmployeeRepository;
 import com.example.EmployeeManagementSystem.util.VarList;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.persistence.metamodel.Type;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service
@@ -38,6 +42,13 @@ public class EmployeeService {
         else{
           return VarList.RSP_NO_DATA_FOUND;
         }
+    }
+
+    public List<EmployeeDto> getAllEmployees(){
+       List<Employee> employeeList = employeeRepository.findAll();
+       return  modelMapper.map(employeeList, new TypeToken<List<EmployeeDto>>(){}.getType());
+
+
     }
 
 }
