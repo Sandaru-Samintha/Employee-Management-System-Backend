@@ -43,8 +43,8 @@ public class EmployeeService {
           return VarList.RSP_NO_DATA_FOUND;
         }
     }
-    @GetMapping("/getAllEmployee")
-    public List<EmployeeDto> getAllEmployee(){
+
+    public List<EmployeeDto> getAllEmployees(){
        List<Employee> employeeList = employeeRepository.findAll();
        return  modelMapper.map(employeeList, new TypeToken<List<EmployeeDto>>(){}.getType());
 

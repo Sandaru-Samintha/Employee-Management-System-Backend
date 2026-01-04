@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "api/v1/employee")
 public class EmployeeController {
@@ -77,6 +79,22 @@ public class EmployeeController {
                 responseDto.setContent(null);
                 return new ResponseEntity(responseDto,HttpStatus.BAD_REQUEST);
             }
+        }catch (Exception ex){
+            responseDto.setCode(VarList.RSP_FAIL);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/getAllEmployee")
+    public ResponseEntity getAllEmployees(){
+        try {
+            List<EmployeeDto> employeeDtoList = employeeService.getAllEmployees();
+            responseDto.setCode(VarList.RSP_SUCCESS);
+            responseDto.setMessage("Success");
+            responseDto.setContent(employeeDtoList);
+            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
         }catch (Exception ex){
             responseDto.setCode(VarList.RSP_FAIL);
             responseDto.setMessage(ex.getMessage());
