@@ -50,5 +50,15 @@ public class EmployeeService {
 
 
     }
+    public EmployeeDto searchEmployee(int empID){
+        //check firs if the employee in the table using empId
+        if(employeeRepository.existsById(empID)){
+            Employee employee = employeeRepository.findById(empID).orElse(null); //get the employee from Employee entity using the empId
+            return  modelMapper.map(employee,EmployeeDto.class); //then return the employee in the EmployeeDTo
+        }
+        else{
+            return null;
+        }
+    }
 
 }

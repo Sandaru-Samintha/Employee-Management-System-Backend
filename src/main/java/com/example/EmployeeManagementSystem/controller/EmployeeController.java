@@ -102,6 +102,29 @@ public class EmployeeController {
             return new ResponseEntity(responseDto,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("searchEmployee/{empID}")
+    public ResponseEntity searchEmployee(@PathVariable int empID){
+        try{
+            EmployeeDto employeeDto = employeeService.searchEmployee(empID);
+            if(employeeDto != null) {
+                responseDto.setCode(VarList.RSP_SUCCESS);
+                responseDto.setMessage("Success");
+                responseDto.setContent(employeeDto);
+                return new ResponseEntity(responseDto,HttpStatus.ACCEPTED);
+            }
+            else {
+                responseDto.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDto.setMessage("No Registered Employee Available In The empID");
+                responseDto.setContent(null);
+                return new ResponseEntity(responseDto,HttpStatus.BAD_REQUEST);
+            }
+        }catch (Exception ex){
+            responseDto.setCode(VarList.RSP_FAIL);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }
