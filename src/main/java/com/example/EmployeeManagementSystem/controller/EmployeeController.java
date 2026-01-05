@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/v1/employee")
+@CrossOrigin(origins = "*") //file:// or http://localhost:8080 when we pass this in front end we should cross use
 public class EmployeeController {
 
     @Autowired
